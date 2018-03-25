@@ -12,7 +12,6 @@ DIR* dp = opendir(".");
 	struct dirent *res;
 
 	while ((res = readdir(dp)) != NULL) {
-
         if (strcmp(res->d_name,".")==0 || strcmp(res->d_name,"..")==0)
             continue;
         struct stat info;
@@ -21,6 +20,9 @@ DIR* dp = opendir(".");
     	if (S_ISDIR(info.st_mode)){
             cout << " DIR" <<  "\n";
             fcount++;
+            chdir(res->d_name);
+            dfs();
+            chdir("..");
             }
     	else{
             size+= info.st_size;
